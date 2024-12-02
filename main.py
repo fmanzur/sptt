@@ -46,6 +46,10 @@ def convertir_a_wav(bucket_name, filename):
         #audio.export(temp_output, format="wav")
         logger.info(f"Archivo convertido guardado como {temp_output}")
 
+        blob = bucket.blob(output_filename)
+        blob.upload_from_filename(temp_output)
+        logger.info(f"Archivo subido a bucket: {bucket_name}/{output_filename}")
+
         return output_filename
     except Exception as e:
         logger.error(f"Error en la conversión de {filename}: {str(e)}")
